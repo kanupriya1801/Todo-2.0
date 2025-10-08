@@ -1,19 +1,34 @@
 pipeline {
-    agent any
+    agent { label 'Jenkins' }
+
+    environment {
+        IMAGE_NAME = 'kanupriya1801/todo-app'
+        IMAGE_TAG = "${env.GIT_COMMIT}"
+    }
+
     stages {
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                echo 'Building the app...'
+                sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
             }
         }
-        stage('Test') {
+
+        stage('Push to Docker Hub') {
             steps {
-                echo 'Running tests...'
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh '''
+                        echo $PASSWORD | docker login -u $USERNAME --password-stdin
+                        docker push $IMAGE_NAME:$IMAGE_TAG
+                        docker tag $IMAGE_NAME:$IMAGE_TAG $IMAGE_NAME:latest
+                        docker push $IMAGE_NAME:latest
+                    '''
+                }
             }
         }
-        stage('Deploy') {
+
+        stage('Cleanup') {
             steps {
-                echo 'Deploying to Kubernetes...'
+                sh 'docker image prune -f'
             }
         }
     }
