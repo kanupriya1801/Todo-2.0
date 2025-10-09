@@ -37,7 +37,7 @@ pipeline {
                     helm upgrade --install todo-app ./todo-helm-chart \
                       --set image.repository=${DOCKER_IMAGE} \
                       --set image.tag=${DOCKER_TAG} \
-                      --kubeconfig=kubeconfig.yaml
+                      --kubeconfig=/var/jenkins_home/kubeconfig.yaml
                 """
             }
         }
