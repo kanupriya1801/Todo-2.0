@@ -8,4 +8,4 @@ spec:
     - port: {{ .Values.service.port }}
       targetPort: 80
   selector:
-    app: {{ include "todo-chart.name" . }}
+    app: {{ include "todo-chart.fullname" . }}
