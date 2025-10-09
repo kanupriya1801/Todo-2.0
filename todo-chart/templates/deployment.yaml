@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: {{ include "todo-chart.fullname" . }}
   labels:
-    app: {{ include "todo-chart.name" . }}
+    app: {{ include "todo-chart.fullname" . }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ include "todo-chart.name" . }}
+      app: {{ include "todo-chart.fullname" . }}
   template:
     metadata:
       labels:
-        app: {{ include "todo-chart.name" . }}
+        app: {{ include "todo-chart.fullname" . }}
     spec:
       containers:
         - name: todo-app
