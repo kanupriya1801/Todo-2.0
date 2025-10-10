@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = "kanupriya18/todo-2.0"
         DOCKER_TAG = "${env.BUILD_NUMBER}"
+        KUBECONFIG = "/root/.kube/config"
     }
 
     stages {
@@ -37,7 +38,7 @@ pipeline {
                     helm upgrade --install todo-app ./todo-helm-chart \
                       --set image.repository=${DOCKER_IMAGE} \
                       --set image.tag=${DOCKER_TAG} \
-                      --kubeconfig=${KUBECONFIG}
+                      --kubeconfig=${env.KUBECONFIG}
                 """
             }
         }
