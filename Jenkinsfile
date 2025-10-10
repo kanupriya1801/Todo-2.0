@@ -46,21 +46,21 @@ pipeline {
         stage('Update Jira') {
             steps {
                 sh """
-                  curl -X POST https://kanupriya18701-1758796370320.atlassian.net/rest/builds/0.1/bulk \
-                    -H 'Authorization: Bearer ATATT3xFfGF06B2CRm4bFUPELT65fWEwNmGh_dlTlEAKBtpx1DsP_KB37btlUruKHF7O67EvS3qaxOHtj-w9sXscRzfQSm8dZj-DLTesLyDsTwteEl4JhfbOp-wCv9uoYakm25qxo1rfkZ4X7GVOMnKizjYSAs8Kjq8SRlX0LeiorD9_jFbNseA=00A8B502' \
-                    -H 'Content-Type: application/json' \
-                    -d '{
-                      "builds": [{
-                        "pipelineId": "todo-app",
-                        "buildNumber": "${env.BUILD_NUMBER}",
-                        "updateSequenceNumber": ${env.BUILD_NUMBER},
-                        "displayName": "Build #${env.BUILD_NUMBER}",
-                        "url": "http://localhost:8080/job/Todo-app/${env.BUILD_NUMBER}/",
-                        "state": "successful",
-                        "issueKeys": ["SCRUM-7"]
-                      }]
-                    }'
-               """
+                  curl -X POST https://kanupriya18701-1758796370320.atlassian.net/rest/builds/0.1/bulk \\
+                    -u                                                                                                                                                                      kanupriya18701@gmail.com:ATATT3xFfGF06B2CRm4bFUPELT65fWEwNmGh_dlTlEAKBtpx1DsP_KB37btlUruKHF7O67EvS3qaxOHtj-w9sXscRzfQSm8dZj-DLTesLyDsTwteEl4JhfbOp-wCv9uoYakm25qxo1rfkZ4X7GVOMnKizjYSAs8Kjq8SRlX0LeiorD9_jFbNseA \\
+                       -H 'Content-Type: application/json' \\
+                       -d '{
+                         "builds": [{
+                           "pipelineId": "todo-app",
+                           "buildNumber": "${env.BUILD_NUMBER}",
+                           "updateSequenceNumber": ${env.BUILD_NUMBER},
+                           "displayName": "Build #${env.BUILD_NUMBER}",
+                           "url": "http://localhost:8080/job/Todo-app/${env.BUILD_NUMBER}/",
+                           "state": "successful",
+                           "issueKeys": ["SCRUM-7"]
+                         }]
+                      }'
+                 """
             }
         }
     }
