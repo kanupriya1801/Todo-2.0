@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = "kanupriya18/todo-2.0"
         DOCKER_TAG = "${env.BUILD_NUMBER}"
+        KUBECONFIG = "/root/.kube/config"
     }
 
     stages {
