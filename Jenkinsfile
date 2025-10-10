@@ -35,7 +35,7 @@ pipeline {
         stage('Deploy to Kubernetes with Helm') {
             steps {
                 sh """
-                    helm upgrade --install todo-app ./todo-helm-chart \
+                    helm upgrade --install todo-app ./todo-chart \
                       --set image.repository=${DOCKER_IMAGE} \
                       --set image.tag=${DOCKER_TAG} \
                       --kubeconfig=${env.KUBECONFIG}
