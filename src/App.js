@@ -2,7 +2,7 @@ import { useState } from 'react';
 import MainSection from './MainSection';
 import './App.css'
 import SideNav from './SideNav';
-
+//comment added
 export default function App() {
   const [active, setActive] = useState("INBOX")
   return (
