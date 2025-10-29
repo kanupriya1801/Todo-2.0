@@ -5,6 +5,10 @@ pipeline {
         DOCKER_IMAGE = "kanupriya18/todo-2.0"
         DOCKER_TAG = "${env.BUILD_NUMBER}"
         KUBECONFIG = "/home/kanupr/.kube/config"
+        SONAR_PROJECT_KEY = 'todo-2.0'
+        SONARQUBE_TOKEN = credentials('SonarQube') 
+        SONAR_HOST_URL = 'http://localhost:9001'
+
     }
 
     stages {
@@ -15,12 +19,20 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('MySonarQubeServer') {
-                    sh 'sonar-scanner'
+                script {
+                    withSonarQubeEnv('MySonarQubeServer') {
+                        sh '''
+                            sonar-scanner \
+                                -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+                                -Dsonar.sources=. \
+                                -Dsonar.projectVersion=${DOCKER_TAG} \
+                                -Dsonar.host.url=${SONAR_HOST_URL} \
+                                -Dsonar.login=${SONARQUBE_TOKEN}
+                        '''
+                    }
                 }
             }
         }
-
         stage('Build Docker Image') {
             steps {
                 script {
