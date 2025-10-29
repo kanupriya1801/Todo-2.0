@@ -1,11 +1,6 @@
 pipeline {
     agent any
     
-    tools {
-        sonarRunner 'SonarScanner' // Name must match the one in Global Tool Configuration
-    }
-
-
     environment {
         DOCKER_IMAGE = "kanupriya18/todo-2.0"
         DOCKER_TAG = "${env.BUILD_NUMBER}"
