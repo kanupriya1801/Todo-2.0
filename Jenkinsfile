@@ -1,17 +1,12 @@
 pipeline {
     agent any
-    
-    tools {
-        sonarScanner 'SonarScanner' // Name must match the one in Global Tool Configuration
-    }
-
 
     environment {
         DOCKER_IMAGE = "kanupriya18/todo-2.0"
         DOCKER_TAG = "${env.BUILD_NUMBER}"
         KUBECONFIG = "/home/kanupr/.kube/config"
         SONAR_PROJECT_KEY = 'todo-2.0'
-        SONARQUBE_TOKEN = credentials('SonarQube') 
+        SONARQUBE_TOKEN = credentials('MySonarQubeServer') 
         SONAR_HOST_URL = 'http://localhost:9000'
 
     }
@@ -25,7 +20,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    withSonarQubeEnv('MySonarQubeServer') {
+                    withSonarQubeEnv('SonarQube-Server') {
                         sh '''
                             sonar-scanner \
                                 -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
