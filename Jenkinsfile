@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     tools {
-        SonarRunnerInstallation 'SonarScanner' // Name must match the one in Global Tool Configuration
+        sonarRunner 'SonarScanner' // Name must match the one in Global Tool Configuration
     }
 
 
