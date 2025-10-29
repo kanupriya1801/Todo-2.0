@@ -18,12 +18,20 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('MySonarQubeServer') {
-                    sh 'sonar-scanner'
+                script {
+                    withSonarQubeEnv('MySonarQubeServer') {
+                        sh '''
+                            sonar-scanner \
+                                -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+                                -Dsonar.sources=. \
+                                -Dsonar.projectVersion=${DOCKER_TAG} \
+                                -Dsonar.host.url=${SONAR_HOST_URL} \
+                                -Dsonar.login=${SONARQUBE_TOKEN}
+                        '''
+                    }
                 }
             }
         }
-
         stage('Build Docker Image') {
             steps {
                 script {
