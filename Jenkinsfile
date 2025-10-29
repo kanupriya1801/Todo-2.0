@@ -1,5 +1,10 @@
 pipeline {
     agent any
+    
+    tools {
+        sonarScanner 'SonarScanner' // Name must match the one in Global Tool Configuration
+    }
+
 
     environment {
         DOCKER_IMAGE = "kanupriya18/todo-2.0"
