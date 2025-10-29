@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = "kanupriya18/todo-2.0"
         DOCKER_TAG = "${env.BUILD_NUMBER}"
-        KUBECONFIG = "/home/kanupr/.kube/config"
+        KUBECONFIG = "/root/.kube/config"
         SONAR_PROJECT_KEY = 'todo-2.0'
         SONARQUBE_TOKEN = credentials('MySonarQubeServer') 
         SONAR_HOST_URL = 'http://localhost:9000'
