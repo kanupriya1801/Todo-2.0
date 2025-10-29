@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent {label 'built-in'}
 
     environment {
         DOCKER_IMAGE = "kanupriya18/todo-2.0"
