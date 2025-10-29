@@ -12,7 +12,7 @@ pipeline {
         KUBECONFIG = "/root/.kube/config"
         SONAR_PROJECT_KEY = 'todo-2.0'
         SONARQUBE_TOKEN = credentials('SonarQube') 
-        SONAR_HOST_URL = 'http://localhost:9001'
+        SONAR_HOST_URL = 'http://localhost:9000'
     }
 
     stages {
