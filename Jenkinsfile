@@ -13,6 +13,13 @@ pipeline {
                 git url: 'https://github.com/kanupriya1801/Todo-2.0.git', branch: 'main'
             }
         }
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('MySonarQubeServer') {
+                    sh 'sonar-scanner'
+                }
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
