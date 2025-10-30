@@ -8,6 +8,9 @@ pipeline {
         SONAR_PROJECT_KEY = 'todo-2.0'
         SONARQUBE_TOKEN = credentials('MySonarQubeServer') 
         SONAR_HOST_URL = 'http://localhost:9000'
+        HELM_RELEASE = 'todo-app'
+        CHART_PATH = './todo-chart'
+        OPENSHIFT_NAMESPACE = 'kanupriya1801-dev'
     }
 
     stages {
