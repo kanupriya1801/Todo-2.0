@@ -63,7 +63,26 @@ pipeline {
                 """
             }
         }
+        stage('Deploy to OpenShift') {
+            steps {
+                echo " Deploying ${DOCKER_IMAGE}:${DOCKER_TAG} to OpenShift"
+                sh '''
+                   helm upgrade --install ${HELM_RELEASE} ${CHART_PATH} \
+                   --namespace ${OPENSHIFT_NAMESPACE} \
+                   --set image.repository=${DOCKER_IMAGE} \
+                   --set image.tag=${DOCKER_TAG}
+               '''
+            }
+        }
 
+        stage('Verify Deployment') {
+            steps {
+                sh """
+                    oc get pods -n ${OPENSHIFT_NAMESPACE}
+                    oc get svc -n ${OPENSHIFT_NAMESPACE}
+                """
+            }
+        }
         stage('Update Jira') {
             steps {
                 sh """
