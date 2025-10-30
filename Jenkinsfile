@@ -78,8 +78,8 @@ pipeline {
         stage('Verify Deployment') {
             steps {
                 sh """
-                    oc get pods -n ${OPENSHIFT_PROJECT}
-                    oc get svc -n ${OPENSHIFT_PROJECT}
+                    oc get pods -n ${OPENSHIFT_NAMESPACE}
+                    oc get svc -n ${OPENSHIFT_NAMESPACE}
                 """
             }
         }
